@@ -38,22 +38,26 @@ lblName = Label(entries_frame, text="Student Name:",
                 font=("Calibri", 16), bg="#EDCDBB", fg="black")
 lblName.grid(row=2, column=0, padx=10, pady=10, sticky="w")
 
+# lbl_last_name = Label(entries_frame, text="(Last Name)",
+#                       font=("Calibri", 16), fg="black")
+# lbl_last_name.grid(row=2, column=1, padx=10)
+
 txt_last_name = Entry(entries_frame, textvariable=last_name,
-                      font=("Calibri", 16), width=15)
+                      font=("Calibri", 16), width=15, fg='grey')
 # inserts string value, pseudo-placeholder
 txt_last_name.insert(0, 'Enter Last Name')
 txt_last_name.grid(row=2, column=1, padx=10, pady=10, sticky="w")
 
 
 txt_first_name = Entry(
-    entries_frame, textvariable=first_name, font=("Calibri", 16), width=15)
+    entries_frame, textvariable=first_name, font=("Calibri", 16), width=15, fg='grey')
 # inserts string value, pseudo-placeholder
 txt_first_name.insert(0, 'Enter First Name')
 txt_first_name.grid(row=2, column=2, padx=10, pady=10, sticky="w")
 
 
 txt_middle_name = Entry(
-    entries_frame, textvariable=middle_name, font=("Calibri", 16), width=15)
+    entries_frame, textvariable=middle_name, font=("Calibri", 16), width=15, fg='grey')
 # inserts string value, pseudo-placeholder
 txt_middle_name.insert(0, 'Enter Middle Name')
 txt_middle_name.grid(row=2, column=3, padx=10, pady=10, sticky="w")
@@ -164,6 +168,45 @@ def iExit():
     if iExit > 0:
         root.destroy()
         return
+
+
+def clearLastName(*args):
+    if txt_last_name.get() == "Enter Last Name":
+        txt_last_name.delete(0, 'end')
+        txt_last_name.config(fg='black')
+
+
+def leaveLastName(*args):
+    if txt_last_name.get() == "":
+        txt_last_name.config(fg='grey')
+        txt_last_name.insert(0, "Enter Last Name")
+        root.focus()
+
+
+def clearFirstName(*args):
+    if txt_first_name.get() == "Enter First Name":
+        txt_first_name.delete(0, 'end')
+        txt_first_name.config(fg='black')
+
+
+def leaveFirstName(*args):
+    if txt_first_name.get() == "":
+        txt_first_name.config(fg='grey')
+        txt_first_name.insert(0, "Enter First Name")
+        root.focus()
+
+
+def clearMiddleName(*args):
+    if txt_middle_name.get() == "Enter Middle Name":
+        txt_middle_name.delete(0, 'end')
+        txt_middle_name.config(fg='black')
+
+
+def leaveMiddleName(*args):
+    if txt_middle_name.get() == "":
+        txt_middle_name.config(fg='grey')
+        txt_middle_name.insert(0, "Enter Middle Name")
+        root.focus()
 
 
 btn_frame = Frame(entries_frame, bg="#FFEDDB")
@@ -338,5 +381,12 @@ Button(entries_frame, command=filterSex, text="Gender", width=15, font=("Calibri
        bg="#e9aa73", bd=0).grid(row=15, column=3, padx=10, pady=10, sticky="w")
 
 # hello
+
+txt_last_name.bind("<Button-1>", clearLastName)
+txt_last_name.bind("<FocusOut>", leaveLastName)
+txt_first_name.bind("<Button-1>", clearFirstName)
+txt_first_name.bind("<FocusOut>", leaveFirstName)
+txt_middle_name.bind("<Button-1>", clearMiddleName)
+txt_middle_name.bind("<FocusOut>", leaveMiddleName)
 dispalyAll()
 root.mainloop()
